@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library System - Books</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/books.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">📚 LibrarySystem</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="books.html" class="active">Books</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>📚 Book Management</h1>
+            <button class="btn btn-primary" onclick="showAddModal()">+ Add Book</button>
+        </div>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search by title or author...">
+            <button class="btn" onclick="searchBooks()">Search</button>
+        </div>
+
+        <table id="booksTable">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="booksList">
+                <tr><td colspan="4" class="text-center">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Book Modal -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Book</h3>
+            <input type="text" id="bookTitle" placeholder="Book Title">
+            <input type="text" id="bookAuthor" placeholder="Author Name">
+            <div class="modal-buttons">
+                <button class="btn" onclick="hideAddModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveBook()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/book.js"></script>
+</body>
+</html>

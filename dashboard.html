@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library System - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">📚 LibrarySystem</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="books.html">Books</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>📊 Dashboard</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Books</h3>
+                <div class="stat-number" id="totalBooks">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Available</h3>
+                <div class="stat-number" id="availableBooks">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Borrowed</h3>
+                <div class="stat-number" id="borrowedBooks">0</div>
+            </div>
+        </div>
+
+        <div class="recent-section">
+            <h2>Recent Books</h2>
+            <div id="recentBooks" class="book-list">
+                <p class="text-center">Loading...</p>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <h3>Quick Actions</h3>
+            <a href="books.html" class="btn">📚 Manage Books</a>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
