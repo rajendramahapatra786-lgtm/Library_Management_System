@@ -1,11 +1,8 @@
-/**
- * DASHBOARD.JS - Dashboard Functions
- */
-
-// Initialize dashboard
+// Initialize dashboard - Single DOMContentLoaded listener
 document.addEventListener('DOMContentLoaded', function() {
     updateStats();
     loadRecentBooks();
+    updateMemberCount(); // Add member count update
 });
 
 // Update statistics
@@ -43,5 +40,17 @@ function loadRecentBooks() {
     `).join('');
 }
 
+// Update member count for dashboard
+function updateMemberCount() {
+    const members = JSON.parse(localStorage.getItem('members')) || [];
+    const memberCount = document.getElementById('totalMembers');
+    if (memberCount) {
+        memberCount.textContent = members.length;
+    }
+}
+
 // Auto-refresh stats every 30 seconds
-setInterval(updateStats, 30000);
+setInterval(function() {
+    updateStats();
+    updateMemberCount(); // Also refresh member count
+}, 30000);

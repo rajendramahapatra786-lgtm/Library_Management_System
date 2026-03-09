@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library System - Members</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/members.css">
+    <!-- Add Font Awesome for icons (optional but nice) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">📚 LibrarySystem</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="books.html">Books</a>
+            <a href="members.html" class="active">Members</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>👥 Member Management</h1>
+            <button class="btn btn-primary" onclick="showAddMemberModal()">+ Add Member</button>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by name, ID, or email...">
+                <button class="btn" onclick="searchMembers()">Search</button>
+            </div>
+            <div class="filter-box">
+                <select id="typeFilter" onchange="filterMembers()">
+                    <option value="all">All Members</option>
+                    <option value="Student">Students</option>
+                    <option value="Teacher">Teachers</option>
+                    <option value="Regular">Regular</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid" style="margin-bottom: 2rem;">
+            <div class="stat-card">
+                <h3>Total Members</h3>
+                <div class="stat-number" id="totalMembers">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Students</h3>
+                <div class="stat-number" id="totalStudents">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Teachers</h3>
+                <div class="stat-number" id="totalTeachers">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Active Now</h3>
+                <div class="stat-number" id="activeMembers">0</div>
+            </div>
+        </div>
+
+        <!-- Members Table -->
+        <table id="membersTable">
+            <thead>
+                <tr>
+                    <th>Member ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Type</th>
+                    <th>Join Date</th>
+                    <th>Books</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="membersList">
+                <tr><td colspan="9" class="text-center">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Member Modal -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <h3>Add New Member</h3>
+            <input type="text" id="memberId" placeholder="Member ID (e.g., LIB001)">
+            <input type="text" id="memberName" placeholder="Full Name">
+            <input type="email" id="memberEmail" placeholder="Email Address">
+            <input type="tel" id="memberPhone" placeholder="Phone Number">
+            <select id="memberType">
+                <option value="">Select Member Type</option>
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Regular">Regular</option>
+            </select>
+            <input type="date" id="joinDate">
+            <div class="modal-buttons">
+                <button class="btn" onclick="hideAddMemberModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveMember()">Save Member</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Member Modal -->
+    <div id="editMemberModal" class="modal">
+        <div class="modal-content">
+            <h3>Edit Member</h3>
+            <input type="hidden" id="editMemberIndex">
+            <input type="text" id="editMemberId" placeholder="Member ID" readonly>
+            <input type="text" id="editMemberName" placeholder="Full Name">
+            <input type="email" id="editMemberEmail" placeholder="Email Address">
+            <input type="tel" id="editMemberPhone" placeholder="Phone Number">
+            <select id="editMemberType">
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Regular">Regular</option>
+            </select>
+            <input type="date" id="editJoinDate">
+            <div class="modal-buttons">
+                <button class="btn" onclick="hideEditMemberModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="updateMember()">Update Member</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/members.js"></script>
+</body>
+</html>

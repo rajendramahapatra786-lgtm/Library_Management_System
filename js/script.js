@@ -1,7 +1,3 @@
-/**
- * SCRIPT.JS - Shared Functions
- */
-
 // Initialize data when page loads
 document.addEventListener('DOMContentLoaded', function() {
     initializeData();
