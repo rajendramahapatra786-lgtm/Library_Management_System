@@ -10,11 +10,11 @@ function initIssueStorage() {
 // Issue a book
 function issueBook(bookName, memberName, days) {
     initIssueStorage();
-    
+
     const today = new Date();
     const dueDate = new Date();
     dueDate.setDate(dueDate.getDate() + days);
-    
+
     const issue = {
         id: Date.now(),
         book: bookName,
@@ -25,18 +25,19 @@ function issueBook(bookName, memberName, days) {
         returnDate: null,
         fine: 0
     };
-    
+
     const issues = JSON.parse(localStorage.getItem('issues'));
     issues.push(issue);
     localStorage.setItem('issues', JSON.stringify(issues));
-    
+
     return issue;
 }
 
 // Get all issues
 function getAllIssues() {
     initIssueStorage();
-    return JSON.parse(localStorage.getItem('issues'));
+    const issues = JSON.parse(localStorage.getItem('issues')) || [];
+    return issues;
 }
 
 // Add this to issue.js - Get only issued books (not returned)
