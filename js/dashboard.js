@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateMemberCount(); // Add member count update
     updateIssuedBooks(); // Add issued books count update
     updateReturnedToday(); 
+    loadCurrentIssues();
 });
 
 // Update statistics
@@ -81,11 +82,54 @@ function updateReturnedToday() {
 
 }
 
+function loadCurrentIssues() {
+
+    const issues = getIssuedBooks();
+    const tableBody = document.getElementById("issuesTableBody");
+
+    if (!tableBody) return;
+
+    if (issues.length === 0) {
+        tableBody.innerHTML = `
+        <tr>
+            <td colspan="6" class="text-center">No books currently issued</td>
+        </tr>`;
+        return;
+    }
+
+    tableBody.innerHTML = issues.map(issue => {
+
+        const today = new Date();
+        const due = new Date(issue.dueDate);
+
+        let status = "Issued";
+        if (due < today) {
+            status = "Overdue";
+        }
+
+        return `
+        <tr>
+            <td>${issue.book}</td>
+            <td>${issue.member}</td>
+            <td>${issue.issueDate}</td>
+            <td>${issue.dueDate}</td>
+            <td>${status}</td>
+            <td>
+                <a href="return.html" class="btn btn-danger">Return</a>
+            </td>
+        </tr>
+        `;
+
+    }).join("");
+
+}
+
 // Auto-refresh stats every 30 seconds
 setInterval(function () {
     updateStats();
-    updateMemberCount(); // Also refresh member count
-}, 30000);
+    updateMemberCount();
+    loadCurrentIssues(); // Also refresh member count
+}, 5000);
 
 const books = JSON.parse(localStorage.getItem('issuedBooks')) || [];
 // Then display these books in your table
