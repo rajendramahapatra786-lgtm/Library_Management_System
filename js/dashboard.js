@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateIssuedBooks(); // Add issued books count update
     updateReturnedToday(); 
     loadCurrentIssues();
+    loadRecentReturns();
 });
 
 // Update statistics
@@ -124,11 +125,45 @@ function loadCurrentIssues() {
 
 }
 
+
+function loadRecentReturns() {
+
+    const issues = JSON.parse(localStorage.getItem('issues')) || [];
+    const tableBody = document.getElementById("returnsTableBody");
+
+    if (!tableBody) return;
+
+    const returned = issues.filter(issue => issue.status === "returned");
+
+    if (returned.length === 0) {
+        tableBody.innerHTML = `
+        <tr>
+            <td colspan="4" class="text-center">No books returned yet</td>
+        </tr>`;
+        return;
+    }
+
+    tableBody.innerHTML = returned.slice(-5).reverse().map(book => {
+
+        return `
+        <tr>
+            <td>${book.book}</td>
+            <td>${book.member}</td>
+            <td>${book.returnDate}</td>
+            <td>${book.fine ? "₹" + book.fine : "-"}</td>
+        </tr>
+        `;
+
+    }).join("");
+
+}
+
 // Auto-refresh stats every 30 seconds
 setInterval(function () {
     updateStats();
     updateMemberCount();
-    loadCurrentIssues(); // Also refresh member count
+    loadCurrentIssues();
+    loadRecentReturns(); // Also refresh member count
 }, 5000);
 
 const books = JSON.parse(localStorage.getItem('issuedBooks')) || [];
