@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,10 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/issue.css">
 </head>
+
 <body>
     <div class="container">
-        <!-- Navigation -->
-        <nav class="nav-menu">
-            <a href="dashboard.html" class="nav-link">Dashboard</a>
-            <a href="issue.html" class="nav-link active">Issue Books</a>
-            <a href="return.html" class="nav-link">Return Books</a>
-        </nav>
+       <div id="navbar"></div>
 
         <!-- Main Content -->
         <main>
@@ -35,24 +32,24 @@
             <!-- Issue Form -->
             <section class="issue-form">
                 <h2>📝 Issue Book Form</h2>
-                
+
                 <div class="form-group">
                     <label for="bookName">Book Name:</label>
                     <input type="text" id="bookName" class="form-control" placeholder="Enter book name">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="memberName">Member Name:</label>
                     <input type="text" id="memberName" class="form-control" placeholder="Enter member name">
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="days">Return in (days):</label>
                         <input type="number" id="days" class="form-control" value="7" min="1" max="30">
                     </div>
                 </div>
-                
+
                 <div>
                     <button onclick="handleIssue()" class="btn btn-primary">📕 Issue Book</button>
                     <button onclick="clearForm()" class="btn btn-secondary">Clear Form</button>
@@ -64,12 +61,8 @@
 
             <!-- Search Section -->
             <section class="search-section">
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    class="search-input"
-                    placeholder="🔍 Search issued books by name or member..."
-                >
+                <input type="text" id="searchInput" class="search-input"
+                    placeholder="🔍 Search issued books by name or member...">
             </section>
 
             <!-- Issues Table -->
@@ -95,13 +88,20 @@
     <script src="js/issue.js"></script>
     <script src="js/return.js"></script>
     <script>
+        fetch("components/navbar.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("navbar").innerHTML = data;
+            });
+    </script>
+    <script>
         // Page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             displayIssues();
             updateStats();
-            
+
             // Search listener
-            document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            document.getElementById('searchInput').addEventListener('keyup', function (e) {
                 filterIssues(e.target.value);
             });
         });
@@ -118,7 +118,7 @@
             }
 
             const result = issueBook(book, member, days);
-            
+
             showMessage(`✅ Book "${book}" issued to ${member}`);
             clearForm();
             displayIssues();
@@ -129,7 +129,7 @@
         function showMessage(text) {
             const area = document.getElementById('messageArea');
             area.innerHTML = `<div class="message-success">${text}</div>`;
-            
+
             setTimeout(() => {
                 area.innerHTML = '';
             }, 3000);
@@ -169,15 +169,15 @@
         // Filter issues
         function filterIssues(keyword) {
             keyword = keyword.toLowerCase().trim();
-            
+
             if (keyword === '') {
                 displayIssues();
                 return;
             }
 
             const all = getAllIssues().filter(i => i.status === 'issued');
-            const filtered = all.filter(issue => 
-                issue.book.toLowerCase().includes(keyword) || 
+            const filtered = all.filter(issue =>
+                issue.book.toLowerCase().includes(keyword) ||
                 issue.member.toLowerCase().includes(keyword)
             );
 
@@ -195,4 +195,5 @@
         }
     </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,16 +10,9 @@
     <!-- Add Font Awesome for icons (optional but nice) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="logo">📚 LibrarySystem</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="books.html">Books</a>
-            <a href="members.html" class="active">Members</a>
-        </div>
-    </nav>
+    <div id="navbar"></div>
 
     <div class="container">
         <div class="header">
@@ -78,7 +72,9 @@
                 </tr>
             </thead>
             <tbody id="membersList">
-                <tr><td colspan="9" class="text-center">Loading...</td></tr>
+                <tr>
+                    <td colspan="9" class="text-center">Loading...</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -129,5 +125,13 @@
 
     <script src="js/script.js"></script>
     <script src="js/members.js"></script>
+    <script>
+        fetch("components/navbar.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("navbar").innerHTML = data;
+            });
+    </script>
 </body>
+
 </html>

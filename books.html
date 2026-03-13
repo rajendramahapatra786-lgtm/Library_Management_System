@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +8,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/books.css">
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="logo">📚 LibrarySystem</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="books.html" class="active">Books</a>
-        </div>
-    </nav>
+    <div id="navbar"></div>
 
     <div class="container">
         <div class="header">
@@ -38,7 +33,9 @@
                 </tr>
             </thead>
             <tbody id="booksList">
-                <tr><td colspan="4" class="text-center">Loading...</td></tr>
+                <tr>
+                    <td colspan="4" class="text-center">Loading...</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -58,5 +55,13 @@
 
     <script src="js/script.js"></script>
     <script src="js/book.js"></script>
+    <script>
+        fetch("components/navbar.html")
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("navbar").innerHTML = data;
+            });
+    </script>
 </body>
+
 </html>
